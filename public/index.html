@@ -8,11 +8,14 @@
       :root {
         --bg: #0b0d12;
         --card: #131722;
+        --card2: #171c2a;
         --accent: #6366f1;
+        --accent-soft: rgba(99, 102, 241, 0.15);
         --text: #e5e7eb;
         --muted: #9ca3af;
         --green: #22c55e;
         --red: #ef4444;
+        --amber: #f59e0b;
       }
       * {
         box-sizing: border-box;
@@ -25,18 +28,18 @@
         font-family: "Segoe UI", system-ui, sans-serif;
         min-height: 100vh;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         padding: 40px 20px;
       }
       .container {
-        max-width: 720px;
+        max-width: 760px;
         width: 100%;
       }
       .badge {
         display: inline-block;
         padding: 4px 12px;
-        background: rgba(99, 102, 241, 0.15);
+        background: var(--accent-soft);
         color: var(--accent);
         border-radius: 999px;
         font-size: 12px;
@@ -53,6 +56,7 @@
         margin-bottom: 32px;
         font-size: 15px;
       }
+
       .card {
         background: var(--card);
         border: 1px solid rgba(255, 255, 255, 0.06);
@@ -72,8 +76,11 @@
       .card:active {
         transform: translateY(0);
       }
+      .card.active {
+        border-color: var(--accent);
+      }
       .card.loading {
-        border-color: #f59e0b;
+        border-color: var(--amber);
         opacity: 0.7;
       }
       .method {
@@ -107,7 +114,7 @@
         background: var(--card);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
-        padding: 20px;
+        padding: 22px;
         margin-top: 20px;
       }
       #output-panel.visible {
@@ -117,7 +124,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px;
+        margin-bottom: 18px;
       }
       .output-title {
         font-size: 13px;
@@ -130,6 +137,7 @@
         font-weight: 700;
         padding: 3px 10px;
         border-radius: 999px;
+        margin-right: 8px;
       }
       .status-pill.ok {
         background: rgba(34, 197, 94, 0.15);
@@ -139,33 +147,118 @@
         background: rgba(239, 68, 68, 0.15);
         color: var(--red);
       }
+      .status-pill.pending {
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber);
+      }
       .close-btn {
         background: none;
         border: none;
         color: var(--muted);
         cursor: pointer;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 1;
         padding: 4px 8px;
       }
       .close-btn:hover {
         color: var(--text);
       }
-      pre {
-        background: #0b0d12;
-        border-radius: 10px;
-        padding: 16px;
-        overflow-x: auto;
-        font-size: 13px;
-        line-height: 1.5;
-        color: #d1d5db;
-        max-height: 320px;
-        overflow-y: auto;
+
+      /* Rendered content styles */
+      .render-loading {
+        color: var(--muted);
+        font-size: 14px;
+        padding: 20px 0;
+        text-align: center;
       }
-      .meta-line {
+      .render-error {
+        color: var(--red);
+        font-size: 14px;
+        padding: 14px;
+        background: rgba(239, 68, 68, 0.08);
+        border-radius: 10px;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .stat-box {
+        background: var(--card2);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .stat-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+      }
+      .stat-value {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .stat-value.status-ok {
+        color: var(--green);
+      }
+
+      .quote-card {
+        background: var(--card2);
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 10px;
+      }
+      .quote-card:last-child {
+        margin-bottom: 0;
+      }
+      .quote-text {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+      .quote-text::before {
+        content: "“";
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .quote-text::after {
+        content: "”";
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .quote-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .quote-author {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .quote-category {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      .quote-id {
+        font-size: 11px;
+        color: #6b7280;
+        margin-bottom: 8px;
+      }
+
+      .result-meta {
         color: var(--muted);
         font-size: 12px;
-        margin-top: 10px;
+        margin-bottom: 14px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
 
       footer {
@@ -189,26 +282,26 @@
         Engineering internship.
       </p>
 
-      <div class="card" data-endpoint="/api/v1/health">
+      <div class="card" data-endpoint="/api/v1/health" data-type="health">
         <span class="method">GET</span><code>/api/v1/health</code>
         <div class="desc">
           Server health, uptime, memory usage and environment info.
         </div>
         <div class="hint">Click to run this request live</div>
       </div>
-      <div class="card" data-endpoint="/api/v1/quotes">
+      <div class="card" data-endpoint="/api/v1/quotes" data-type="quotes">
         <span class="method">GET</span><code>/api/v1/quotes</code>
         <div class="desc">
           List all quotes. Supports ?category= and ?limit= query params.
         </div>
         <div class="hint">Click to run this request live</div>
       </div>
-      <div class="card" data-endpoint="/api/v1/quotes/random">
+      <div class="card" data-endpoint="/api/v1/quotes/random" data-type="quote">
         <span class="method">GET</span><code>/api/v1/quotes/random</code>
         <div class="desc">Fetch a single random quote.</div>
         <div class="hint">Click to run this request live</div>
       </div>
-      <div class="card" data-endpoint="/api/v1/quotes/1">
+      <div class="card" data-endpoint="/api/v1/quotes/1" data-type="quote">
         <span class="method">GET</span><code>/api/v1/quotes/:id</code>
         <div class="desc">Fetch a single quote by its numeric id.</div>
         <div class="hint">Click to run this request live (uses id = 1)</div>
@@ -217,13 +310,12 @@
       <div id="output-panel">
         <div class="output-header">
           <span class="output-title" id="output-title">RESPONSE</span>
-          <div>
+          <div style="display: flex; align-items: center">
             <span class="status-pill" id="status-pill"></span>
             <button class="close-btn" id="close-btn">&times;</button>
           </div>
         </div>
-        <pre id="output-body">{}</pre>
-        <div class="meta-line" id="output-meta"></div>
+        <div id="output-body"></div>
       </div>
 
       <footer>
@@ -242,23 +334,101 @@
       const outputBody = document.getElementById("output-body");
       const outputTitle = document.getElementById("output-title");
       const statusPill = document.getElementById("status-pill");
-      const outputMeta = document.getElementById("output-meta");
       const closeBtn = document.getElementById("close-btn");
 
       closeBtn.addEventListener("click", () => {
         panel.classList.remove("visible");
+        cards.forEach((c) => c.classList.remove("active"));
       });
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function renderHealth(data, meta) {
+        return `
+      <div class="result-meta">${meta}</div>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-label">Status</div>
+          <div class="stat-value status-ok">${escapeHtml(data.status)}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Uptime</div>
+          <div class="stat-value">${data.uptimeSeconds}s</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Memory</div>
+          <div class="stat-value">${data.memoryUsageMB} MB</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Environment</div>
+          <div class="stat-value">${escapeHtml(data.environment)}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Host</div>
+          <div class="stat-value">${escapeHtml(data.host)}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">API Version</div>
+          <div class="stat-value">${escapeHtml(data.apiVersion)}</div>
+        </div>
+      </div>
+    `;
+      }
+
+      function renderQuoteCard(quote) {
+        return `
+      <div class="quote-card">
+        <div class="quote-id">#${quote.id}</div>
+        <div class="quote-text">${escapeHtml(quote.text)}</div>
+        <div class="quote-footer">
+          <span class="quote-author">${escapeHtml(quote.author)}</span>
+          <span class="quote-category">${escapeHtml(quote.category)}</span>
+        </div>
+      </div>
+    `;
+      }
+
+      function renderQuotesList(data, meta) {
+        if (!Array.isArray(data) || data.length === 0) {
+          return `<div class="result-meta">${meta}</div><div class="render-loading">No quotes found</div>`;
+        }
+        return `
+      <div class="result-meta">${meta}</div>
+      ${data.map(renderQuoteCard).join("")}
+    `;
+      }
+
+      function renderSingleQuote(data, meta) {
+        return `
+      <div class="result-meta">${meta}</div>
+      ${renderQuoteCard(data)}
+    `;
+      }
+
+      function renderError(message) {
+        return `<div class="render-error">${escapeHtml(message)}</div>`;
+      }
 
       cards.forEach((card) => {
         card.addEventListener("click", async () => {
           const endpoint = card.getAttribute("data-endpoint");
+          const type = card.getAttribute("data-type");
+
+          cards.forEach((c) => c.classList.remove("active"));
+          card.classList.add("active");
+          card.classList.add("loading");
+
           outputTitle.textContent = `GET ${endpoint}`;
           statusPill.textContent = "LOADING";
-          statusPill.className = "status-pill";
-          outputBody.textContent = "Fetching...";
-          outputMeta.textContent = "";
+          statusPill.className = "status-pill pending";
+          outputBody.innerHTML =
+            '<div class="render-loading">Fetching live data...</div>';
           panel.classList.add("visible");
-          card.classList.add("loading");
 
           const start = performance.now();
 
@@ -267,15 +437,31 @@
             const duration = (performance.now() - start).toFixed(1);
             const json = await res.json();
 
-            outputBody.textContent = JSON.stringify(json, null, 2);
             statusPill.textContent = `${res.status} ${res.ok ? "OK" : "ERROR"}`;
             statusPill.className = `status-pill ${res.ok ? "ok" : "err"}`;
-            outputMeta.textContent = `Responded in ${duration}ms`;
+
+            if (!res.ok) {
+              outputBody.innerHTML = renderError(
+                json.message || "Request failed",
+              );
+              return;
+            }
+
+            const meta = `${json.message} · responded in ${duration}ms`;
+
+            if (type === "health") {
+              outputBody.innerHTML = renderHealth(json.data, meta);
+            } else if (type === "quotes") {
+              outputBody.innerHTML = renderQuotesList(json.data, meta);
+            } else if (type === "quote") {
+              outputBody.innerHTML = renderSingleQuote(json.data, meta);
+            } else {
+              outputBody.innerHTML = `<pre>${escapeHtml(JSON.stringify(json, null, 2))}</pre>`;
+            }
           } catch (err) {
-            outputBody.textContent = `Request failed: ${err.message}`;
             statusPill.textContent = "NETWORK ERROR";
             statusPill.className = "status-pill err";
-            outputMeta.textContent = "";
+            outputBody.innerHTML = renderError(err.message);
           } finally {
             card.classList.remove("loading");
           }

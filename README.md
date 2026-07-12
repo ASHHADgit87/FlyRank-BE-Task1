@@ -80,19 +80,6 @@ Centralized Error Handler (on failure)
 
 ---
 
-# Getting Started
-```bash
-git clone https://github.com/ASHHADgit87/FlyRank-BE-Task1.git
-cd FlyRank-BE-Task1
-npm install
-copy .env.example .env
-npm run dev
-```
-
-Server runs at `http://localhost:5000`.
-
----
-
 # Testing
 ```bash
 npm test
@@ -106,5 +93,7 @@ npm test
 ---
 
 # Creator & Developer
+
 **Muhammad Ashhadullah Zaheer**
+
 LinkedIn: https://www.linkedin.com/in/muhammad-ashhadullah-zaheer-41194a340/

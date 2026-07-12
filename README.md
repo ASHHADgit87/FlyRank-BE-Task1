@@ -80,15 +80,9 @@ Centralized Error Handler (on failure)
 
 ---
 
-# Testing
-```bash
-npm test
-```
-
----
-
 # Live Demo
 
+https://fly-rank-be-task1.vercel.app/
 
 ---
 

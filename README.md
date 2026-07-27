@@ -1,4 +1,4 @@
-# FlyRank BE Task 1
+# FlyRank BE Task 1 - Advance Api Endpoint
 **FlyRank BE Task 1** is a production-styled Express.js REST API built for the FlyRank Backend AI Engineering internship (BE-01). It goes beyond a minimal two-endpoint exercise, implementing a versioned API with structured responses, centralized error handling, rate limiting, security middleware, request logging, automated tests, and CI — all in a clean, scalable folder structure.
 
 ---
